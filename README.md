@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/34106698/README.md)
+
 # Personal ePortfolio
 
 A frontend-only portfolio for a Cybersecurity student. Every achievement is a typed data record; the homepage graph, statistics, timeline, search, featured section and "related" links are all derived from those records, so nothing is written twice.
