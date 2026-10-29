@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/34106698/README.md)
 # Personal ePortfolio
 
 A frontend-only portfolio for a Cybersecurity student. Every achievement is a typed data record; the homepage graph, statistics, timeline, search, featured section and "related" links are all derived from those records, so nothing is written twice.
@@ -16,7 +17,7 @@ npm run dev        # http://localhost:5173
 | Command             | What it does                                             |
 | ------------------- | -------------------------------------------------------- |
 | `npm run dev`       | Development server with hot reload                       |
-| `npm run build`     | Type-check, then build to `dist/`                        |
+| `npm run build`     | Type-check, then build to `docs/`                        |
 | `npm run preview`   | Serve the production build locally                       |
 | `npm run lint`      | ESLint                                                   |
 | `npm run typecheck` | TypeScript only                                          |
@@ -132,14 +133,31 @@ The local data files are content, not an admin system: editing them and redeploy
 
 ## Deploying
 
-`npm run build` produces a static site in `dist/`. Because it uses clean URLs, the host must serve `index.html` for unknown paths:
+`npm run build` produces a static site in `docs/`.
 
-- **Netlify**: works out of the box (`public/_redirects` is included).
-- **Vercel**: works out of the box (`vercel.json` is included).
-- **Cloudflare Pages**: works out of the box (uses `_redirects`).
-- **GitHub Pages**: copy `dist/index.html` to `dist/404.html` after building, and if the site lives under `/<repo>/`, set `base: '/<repo>/'` in `vite.config.ts`.
+### GitHub Pages (current setup, no GitHub Actions needed)
 
-After deploying, set `site.url` and rebuild to generate `sitemap.xml`. `robots.txt` is always generated. Replace `public/og-image.png` with your own social preview image (1200×630).
+The site is configured for **https://alhassan-self-learning.github.io/Personal-ePortfolio-Website/**:
+
+- `site.basePath` in `src/data/site.ts` is `'/Personal-ePortfolio-Website/'` (the repo name).
+- `site.url` is the full address above.
+- The build adds `404.html` (so direct links like `/projects/<id>` load) and `.nojekyll`.
+
+To publish:
+
+1. Run `npm run build`.
+2. Commit or upload the `docs/` folder to the `main` branch.
+3. First time only: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main`, folder: `/docs` → Save.**
+
+To update the site later, edit your content, run `npm run build` again and upload the new `docs/` folder. Delete the old `docs/assets` files on GitHub first, or they'll pile up — they're harmless, just clutter.
+
+If you rename the repo, update `basePath` and `url` to match.
+
+### Other hosts
+
+For Netlify, Vercel, Cloudflare Pages, a custom domain or a `<username>.github.io` repo, set `basePath: '/'` and `url` to the new address, then deploy the `docs/` folder (set the host's publish/output directory to `docs`). `public/_redirects` (Netlify, Cloudflare) and `vercel.json` handle clean URLs there.
+
+Replace `public/og-image.png` with your own social preview image (1200×630) whenever you like.
 
 ## Keyboard and accessibility
 
