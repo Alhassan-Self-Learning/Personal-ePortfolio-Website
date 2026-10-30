@@ -15,7 +15,7 @@ export const books: BookEntry[] = [
     subject: 'Security operations',
     status: 'want-to-read',
     sample: true,
-    summary: 'How to collect, analyse and escalate network evidence — a classic for anyone heading into a SOC.',
+    summary: 'How to collect, analyse and escalate network evidence. A classic for anyone heading into a SOC.',
     skills: ['soc-fundamentals', 'networking-fundamentals'],
     tags: ['SOC', 'NSM'],
   },

@@ -29,7 +29,7 @@ export const competitions: CompetitionEntry[] = [
     format: 'Jeopardy, two weeks',
     participation: 'individual',
     sample: true,
-    summary: 'Sample entry. Participation without a placement — shown to demonstrate how entries without a result appear.',
+    summary: 'Sample entry. Participation without a placement, shown to demonstrate how entries without a result appear.',
     challengeCategories: ['General skills', 'Web exploitation', 'Cryptography'],
     skills: ['linux', 'web-app-testing'],
     tags: ['CTF'],

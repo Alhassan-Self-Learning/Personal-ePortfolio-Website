@@ -16,10 +16,10 @@ export default function EventDetail({ entry }: { entry: EventEntry }) {
   const active = entry.role !== 'attendee';
   return (
     <>
-      <div className={active ? 'rounded-xl border border-cat-events/40 bg-cat-events/10 p-5' : 'rounded-xl border border-line p-5'}>
-        <p className="text-xs text-muted">My role</p>
-        <p className="font-display text-lg font-semibold">{eventRoleLabel[entry.role]}</p>
-        <p className="mt-1 text-sm text-muted">{roleSentence[entry.role]}</p>
+      <div className={active ? 'reveal bg-cat-events/10 p-6' : 'reveal bg-surface p-6'}>
+        <p className="text-sm text-muted">My role</p>
+        <p className="text-xl font-medium">{eventRoleLabel[entry.role]}</p>
+        <p className="mt-1 text-base">{roleSentence[entry.role]}</p>
       </div>
       {entry.description && <Paragraphs text={entry.description} />}
       {!!entry.takeaways?.length && (

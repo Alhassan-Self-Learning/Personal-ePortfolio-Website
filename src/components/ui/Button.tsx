@@ -5,12 +5,13 @@ import { publicUrl } from '@/lib/paths';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
+// One button shape for the whole site: square corners, 44px tall, flat fill.
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-[background-color,border-color,color,transform] duration-150 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50';
+  'inline-flex items-center justify-center gap-2 text-base font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50';
 const variants: Record<Variant, string> = {
-  primary: 'h-10 px-4 bg-accent text-accent-ink hover:bg-accent/90',
-  secondary: 'h-10 px-4 border border-line bg-surface text-ink hover:border-muted/60',
-  ghost: 'h-9 px-3 text-muted hover:text-ink hover:bg-sunken/60',
+  primary: 'h-11 px-5 bg-accent text-accent-ink hover:bg-ink hover:text-bg',
+  secondary: 'h-11 px-5 bg-surface text-ink hover:bg-sunken',
+  ghost: 'h-11 px-1 text-ink underline decoration-[1.5px] underline-offset-[5px] hover:text-accent',
 };
 
 function buttonClass(variant: Variant = 'secondary', className?: string) {
@@ -60,7 +61,7 @@ export const IconButton = forwardRef<HTMLButtonElement, ComponentPropsWithoutRef
       type="button"
       aria-label={label}
       title={label}
-      className={cn('inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted transition-colors hover:bg-sunken/70 hover:text-ink', className)}
+      className={cn('inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-surface active:scale-95', className)}
       {...props}
     >
       {children}

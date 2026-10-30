@@ -54,7 +54,7 @@ export function Dialog({ open, onClose, label, children, className, bare }: Dial
       onClick={(e) => {
         if (e.target === ref.current) ref.current?.close();
       }}
-      className={cn('m-auto max-h-[90dvh] w-[min(42rem,calc(100vw-2rem))] overflow-visible rounded-2xl border border-line bg-surface p-0 text-ink shadow-2xl shadow-black/20', className)}
+      className={cn('m-auto max-h-[90dvh] w-[min(42rem,calc(100vw-2rem))] overflow-visible bg-bg p-0 text-ink shadow-2xl shadow-black/25', className)} // taste-skill-ignore: a modal floats over the page
     >
       {open && (
         <div className="relative max-h-[90dvh] overflow-auto">
@@ -63,7 +63,7 @@ export function Dialog({ open, onClose, label, children, className, bare }: Dial
               type="button"
               onClick={() => ref.current?.close()}
               aria-label="Close"
-              className="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-sunken hover:text-ink"
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center text-ink hover:bg-surface"
             >
               <X size={18} aria-hidden="true" />
             </button>

@@ -33,11 +33,11 @@ export const site = {
     specialization: 'Cybersecurity',
     academicStatus: 'Final-year student',
     shortBio:
-      'Final-year Cybersecurity student at GUtech in Oman. I focus on security operations, digital forensics and incident response, and I learn by doing — hands-on labs, CTFs and write-ups for everything I work through.',
+      'Final-year Cybersecurity student at GUtech in Oman. I focus on security operations, digital forensics and incident response, and I learn by doing: hands-on labs, CTFs and a write-up for everything I work through.',
     longBio: [
       "I'm a final-year Cybersecurity student at the German University of Technology in Oman. My coursework has centred on SOC operations, ethical hacking, applied cryptography, computer networks and risk management.",
       'Outside the classroom I build skills on TryHackMe, Hack The Box, PortSwigger Web Security Academy and picoCTF, and work through structured labs such as SEED Labs. I write up what I learn and keep it in a personal knowledge base, so every topic I study leaves something behind I can come back to.',
-      "My first goal is a SOC Analyst role. From there I want to grow into digital forensics and incident response — the part of security where you work out what actually happened.",
+      "My first goal is a SOC Analyst role. From there I want to grow into digital forensics and incident response, the part of security where you work out what actually happened.",
     ],
     careerInterests: [
       'Security operations (SOC)',
@@ -46,8 +46,18 @@ export const site = {
       'Applied cryptography',
       'Risk management',
     ],
-    /** e.g. '/media/profile.jpg' in /public. null shows the monogram instead. */
-    profileImage: null as string | null,
+    /**
+     * Portrait with a transparent background (it stands in front of the
+     * homepage band). null shows the monogram instead.
+     */
+    profileImage: '/media/portrait.webp' as string | null,
+    /** Small square crop of the same photograph, used beside the contact links. */
+    profileImageSquare: '/media/portrait-square.webp' as string | null,
+    /** Close-ups of the massar embroidery from the same photograph. */
+    detailImages: [
+      { src: '/media/massar-detail.webp', alt: 'Close-up of the embroidered massar from the portrait above' },
+      { src: '/media/massar-closeup.webp', alt: 'Detail of the paisley and flower embroidery on the massar' },
+    ],
     /** e.g. '/cv.pdf' in /public. null hides the download button. */
     cvPath: null as string | null,
     /** Public contact email. null hides email links. */

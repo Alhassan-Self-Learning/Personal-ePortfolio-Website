@@ -6,7 +6,7 @@ const categories = ['courses', 'certifications', 'projects', 'experience', 'comp
 export default {
   darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
-  safelist: categories.flatMap((c) => [`text-cat-${c}`, `bg-cat-${c}/10`, `bg-cat-${c}`, `border-cat-${c}/40`, `fill-cat-${c}`]),
+  safelist: categories.flatMap((c) => [`text-cat-${c}`, `bg-cat-${c}`, `bg-cat-${c}/10`]),
   theme: {
     extend: {
       colors: {
@@ -17,20 +17,24 @@ export default {
         muted: v('muted'),
         line: v('line'),
         accent: { DEFAULT: v('accent'), ink: v('accent-ink'), soft: v('accent-soft') },
+        field: { DEFAULT: v('field'), ink: v('field-ink') },
         cat: Object.fromEntries(categories.map((c) => [c, v(`c-${c}`)])),
       },
       fontFamily: {
-        display: ['"Bricolage Grotesque Variable"', '"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Jost Variable"', 'Jost', 'system-ui', 'sans-serif'],
+        display: ['"Jost Variable"', 'Jost', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Modular scale (~1.25) anchored at 17px body.
-        'display-xl': ['clamp(2.6rem, 6.2vw, 4.75rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '650' }],
-        'display-lg': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '620' }],
-        'display-md': ['clamp(1.5rem, 2.6vw, 2rem)', { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '600' }],
+        // Five steps: small, body, lead, heading, display.
+        xs: ['0.8125rem', { lineHeight: '1.45' }],
+        sm: ['0.9375rem', { lineHeight: '1.5' }],
+        base: ['1.0625rem', { lineHeight: '1.55' }],
+        lg: ['1.0625rem', { lineHeight: '1.55' }],
+        xl: ['1.375rem', { lineHeight: '1.35' }],
+        '2xl': ['1.375rem', { lineHeight: '1.3' }],
+        'display-md': ['clamp(1.75rem, 1.2rem + 1.6vw, 2.25rem)', { lineHeight: '1.1', letterSpacing: '-0.015em', fontWeight: '500' }],
+        'display-lg': ['clamp(2.25rem, 1.4rem + 3.4vw, 4rem)', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '500' }],
       },
-      maxWidth: { '8xl': '88rem' },
     },
   },
   plugins: [],

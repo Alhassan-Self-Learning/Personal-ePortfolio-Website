@@ -10,26 +10,26 @@ export default function CertificationDetail({ entry }: { entry: CertificationEnt
   const validity = certValidity(entry);
   return (
     <>
-      <div className="overflow-hidden rounded-xl border border-cat-certifications/40">
-        <div className="flex items-start gap-4 bg-cat-certifications/10 p-5">
+      <div className="reveal">
+        <div className="flex items-start gap-4 bg-cat-certifications/10 p-6">
           <BadgeCheck size={28} aria-hidden="true" className="mt-0.5 shrink-0 text-cat-certifications" />
           <div className="min-w-0 flex-1">
-            <p className="font-display text-lg font-semibold">{validity.label}</p>
-            <p className="text-sm text-muted">
+            <p className="text-xl font-medium">{validity.label}</p>
+            <p className="text-base">
               Issued by {entry.issuer}
               {entry.date ? ` in ${formatDate(entry.date)}` : ''}
               {entry.expires ? `, ${validity.expired ? 'expired' : 'expires'} ${formatDate(entry.expires)}` : ''}
             </p>
           </div>
         </div>
-        <dl className="grid gap-px bg-line sm:grid-cols-2">
-          <div className="bg-surface p-4">
-            <dt className="text-xs text-muted">Credential ID</dt>
-            <dd className="mt-1 break-all font-mono text-sm">{entry.credentialId && !entry.hideCredentialId ? entry.credentialId : 'Not published'}</dd>
+        <dl className="grid bg-surface sm:grid-cols-2">
+          <div className="p-6">
+            <dt className="text-sm text-muted">Credential ID</dt>
+            <dd className="mt-1 break-all text-base tabular-nums tracking-wide">{entry.credentialId && !entry.hideCredentialId ? entry.credentialId : 'Not published'}</dd>
           </div>
-          <div className="bg-surface p-4">
-            <dt className="text-xs text-muted">Verification</dt>
-            <dd className="mt-1 text-sm">
+          <div className="p-6">
+            <dt className="text-sm text-muted">Verification</dt>
+            <dd className="mt-1 text-base">
               {verify ? (
                 <a href={verify.url} target="_blank" rel="noopener noreferrer" className="link inline-flex items-center gap-1">
                   Verify with {entry.issuer} <ExternalLink size={13} aria-hidden="true" />

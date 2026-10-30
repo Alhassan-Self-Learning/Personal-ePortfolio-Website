@@ -103,10 +103,26 @@ The real entries already included are your TryHackMe rooms (without dates — ad
 
 ### 6. Look and feel
 
-- Colours, both themes: CSS variables at the top of `src/styles/index.css`. One accent colour plus one colour per category.
-- Fonts: Bricolage Grotesque (headings), IBM Plex Sans (text), IBM Plex Mono (credential IDs). Self-hosted via Fontsource — no external requests.
-- Monogram letters: `profile.monogram`. Also update `public/favicon.svg` if you change them.
-- Navigation: `src/data/navigation.ts`.
+The design is built around your portrait and the colours of your massar:
+
+- **Palette** (CSS variables at the top of `src/styles/index.css`): a white page (the photograph's own background), near-black text, the massar's embroidery blue as the one accent (links and buttons), and its olive cloth as the one colour field (the homepage band, the "Where I'm heading" section, the monogram). Category colours appear only as small dots. Dark mode keeps the same roles.
+- **Type**: Jost, one family, self-hosted (`@fontsource-variable/jost`). Five sizes: small, body, lead, heading, display.
+- **No ornaments**: no borders around boxes, no hairline dividers, no gradients, no shadows on things at rest. Surfaces are separated by a step in tone.
+- **Motion**: the homepage band draws across and the portrait opens upward on load; sections rise in as you scroll; the embroidery close-ups crossfade slowly. All of it switches off under "reduce motion".
+- **Monogram letters**: `profile.monogram`. Also update `public/favicon.svg` if you change them.
+- **Navigation**: `src/data/navigation.ts`.
+
+### 7. Your photo
+
+The photos live in `public/media/`:
+
+| File | Used for |
+| --- | --- |
+| `portrait.webp`, `portrait-480.webp` | Homepage hero. Background removed, so it stands in front of the olive band in both themes. |
+| `portrait-square.webp` | About and Contact pages, the "Where I'm heading" letter, the homepage contact section. |
+| `massar-detail.webp`, `massar-closeup.webp` | Close-ups of the embroidery, cropped from the same photo. |
+
+To use a different photo, replace these files with the same names (keep `portrait.webp` as a transparent-background PNG/WebP, about 820px wide), or point `profileImage`, `profileImageSquare` and `detailImages` in `src/data/site.ts` at new files.
 
 ## Project structure
 

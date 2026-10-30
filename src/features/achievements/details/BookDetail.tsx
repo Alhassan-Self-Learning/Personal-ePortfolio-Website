@@ -9,19 +9,19 @@ export default function BookDetail({ entry }: { entry: BookEntry }) {
   return (
     <>
       <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="aspect-[2/3] w-32 shrink-0 overflow-hidden rounded-lg border border-line bg-sunken">
+        <div className="aspect-[2/3] w-32 shrink-0 overflow-hidden bg-surface">
           {cover ? (
             <SmartImage src={cover.src} alt={cover.alt} className="h-full w-full" />
           ) : (
             <div className="flex h-full flex-col justify-between bg-cat-books/10 p-3">
               <BookOpen size={18} aria-hidden="true" className="text-cat-books" />
-              <p className="font-display text-sm font-semibold leading-tight">{entry.title}</p>
+              <p className="text-sm font-medium leading-tight">{entry.title}</p>
             </div>
           )}
         </div>
         <div className="space-y-3">
           <p className="text-lg">by {entry.authors.join(', ')}</p>
-          {entry.rating ? <Rating value={entry.rating} /> : <p className="text-sm text-muted">Not rated yet</p>}
+          {entry.rating ? <Rating value={entry.rating} /> : <p className="text-base text-muted">Not rated yet</p>}
           {entry.notes && <Paragraphs text={entry.notes} />}
         </div>
       </div>

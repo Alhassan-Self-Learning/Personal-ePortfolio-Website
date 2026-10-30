@@ -7,7 +7,7 @@ export default function LabDetail({ entry }: { entry: LabEntry }) {
   const independent = entry.kind === 'independent';
   return (
     <>
-      <div className="flex items-start gap-3 rounded-xl border border-line p-4 text-sm">
+      <div className="reveal flex items-start gap-3 bg-surface p-6 text-base">
         {independent ? <FlaskConical size={18} aria-hidden="true" className="mt-0.5 text-cat-labs" /> : <Server size={18} aria-hidden="true" className="mt-0.5 text-cat-labs" />}
         <p>
           {independent

@@ -68,7 +68,7 @@ export const categoryMeta: Record<CategoryKey, CategoryMeta> = {
     label: 'Competitions & Tournaments',
     singular: 'Competition',
     path: '/achievements/competitions',
-    description: 'CTFs and other competitions — with or without a placement.',
+    description: 'CTFs and other competitions, with or without a placement.',
     emptyHint: 'Add a competition to src/data/achievements/competitions.ts.',
   },
   workshops: {
@@ -108,7 +108,7 @@ export const categoryMeta: Record<CategoryKey, CategoryMeta> = {
     label: 'Events, Exhibitions & Forums',
     singular: 'Event',
     path: '/achievements/events',
-    description: 'Conferences, exhibitions and forums — and whether I attended, presented or helped run them.',
+    description: 'Conferences, exhibitions and forums, and whether I attended, presented or helped run them.',
     emptyHint: 'Add an event to src/data/achievements/events.ts.',
   },
   labs: {

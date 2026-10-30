@@ -70,26 +70,19 @@ export default function CategoryPage({ category }: { category: CategoryKey }) {
   const filtering = !!q || active.length > 0;
 
   return (
-    <div className="container-page pb-20">
+    <div className="container-page">
       <PageHeader
         crumbs={[{ label: 'Achievements', to: '/achievements' }, { label: meta.label }]}
-        title={
-          <span className="flex items-center gap-4">
-            <span className={`hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cat-${category}/10 sm:flex`}>
-              <Icon size={24} aria-hidden="true" className={`text-cat-${category}`} />
-            </span>
-            {meta.label}
-          </span>
-        }
+        title={meta.label}
         lead={meta.description}
-        aside={<p className="shrink-0 text-sm text-muted">{plural(all.length, 'entry', 'entries')}</p>}
+        aside={<p className="flex shrink-0 items-center gap-3 text-base"><span aria-hidden="true" className={`h-3 w-3 rounded-full bg-cat-${category}`} />{plural(all.length, 'entry', 'entries')}</p>}
       />
 
       {all.length > 0 && (
-        <div className="sticky top-16 z-20 -mx-4 mb-6 border-b border-line px-4 py-4 glass sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="sticky top-16 z-20 mb-8 bg-bg py-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-xs font-medium text-muted" aria-hidden="true">
+              <span className="text-sm text-muted" aria-hidden="true">
                 Search
               </span>
               <SearchField value={q} onChange={(v) => update('q', v)} label={`Search ${meta.label.toLowerCase()}`} placeholder={`Search ${meta.label.toLowerCase()}`} />
@@ -114,7 +107,7 @@ export default function CategoryPage({ category }: { category: CategoryKey }) {
                   </option>
                 ))}
               </SelectField>
-              <div role="group" aria-label="Layout" className="col-span-2 flex h-10 items-center self-end rounded-lg border border-line bg-surface p-1 sm:col-span-1">
+              <div role="group" aria-label="Layout" className="col-span-2 flex h-11 items-center self-end bg-surface p-1 sm:col-span-1">
                 {VIEWS.map((v) => {
                   const VIcon = v === 'grid' ? LayoutGrid : List;
                   return (
@@ -123,7 +116,7 @@ export default function CategoryPage({ category }: { category: CategoryKey }) {
                       type="button"
                       aria-pressed={view === v}
                       onClick={() => setView(v)}
-                      className={cn('inline-flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2.5 text-sm transition-colors', view === v ? 'bg-sunken text-ink' : 'text-muted hover:text-ink')}
+                      className={cn('inline-flex h-9 flex-1 items-center justify-center gap-1.5 px-3 text-sm transition-colors duration-200 active:scale-95', view === v ? 'animate-pop bg-bg text-ink' : 'text-muted hover:text-ink')}
                     >
                       <VIcon size={15} aria-hidden="true" />
                       <span className="sm:sr-only">{v === 'grid' ? 'Grid' : 'List'}</span>
@@ -133,7 +126,7 @@ export default function CategoryPage({ category }: { category: CategoryKey }) {
               </div>
             </div>
           </div>
-          <p className="mt-3 text-sm text-muted" aria-live="polite">
+          <p className="mt-3 text-sm text-ink" aria-live="polite">
             {filtering ? `${plural(results.length, 'result')} of ${all.length}` : `Showing all ${plural(all.length, 'entry', 'entries')}`}
             {filtering && (
               <button type="button" onClick={clear} className="link ml-3">
@@ -155,7 +148,7 @@ export default function CategoryPage({ category }: { category: CategoryKey }) {
           Try a broader search term, or remove one of the filters.
         </EmptyState>
       ) : (
-        <EntryGrid items={results} view={view} />
+        <EntryGrid key={`${params.toString()}|${view}`} items={results} view={view} />
       )}
     </div>
   );

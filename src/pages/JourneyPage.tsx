@@ -11,22 +11,28 @@ import { entryDateLabel, primaryDateKey, yearOf } from '@/lib/dates';
 import { repository } from '@/lib/repository';
 import type { CategoryKey, Located } from '@/types/content';
 
-function TimelineItem({ l }: { l: Located }) {
+function TimelineItem({ l, delay = 0 }: { l: Located; delay?: number }) {
   return (
-    <li className="relative pl-10">
-      <span aria-hidden="true" className={`absolute left-[7px] top-[0.55rem] h-[11px] w-[11px] rounded-full ring-4 ring-bg bg-cat-${l.category}`} />
-      <Link to={`${categoryMeta[l.category].path}/${l.entry.id}`} className="group block rounded-lg py-2">
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+    <li className="item-in" style={{ animationDelay: `${delay}ms` }}>
+      <Link
+        to={`${categoryMeta[l.category].path}/${l.entry.id}`}
+        className="group grid gap-x-8 gap-y-1 px-3 py-5 transition-[background-color,padding] duration-200 hover:bg-surface hover:pl-5 md:grid-cols-[11rem_minmax(0,1fr)_minmax(0,1fr)]"
+      >
+        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm md:flex-col md:items-start">
           <span className="tabular-nums">{entryDateLabel(l.entry) || 'Undated'}</span>
-          <span className="inline-flex items-center gap-1.5">
-            <CategoryGlyph category={l.category} size={14} />
+          <span className="inline-flex items-center gap-2 text-muted">
+            <CategoryGlyph category={l.category} />
             {categoryMeta[l.category].singular}
           </span>
-          {l.entry.milestone && <span className="text-accent">Milestone</span>}
-          {l.entry.sample && <SampleBadge />}
         </span>
-        <span className="mt-1 block font-display text-lg font-semibold leading-snug group-hover:text-accent">{l.entry.title}</span>
-        <span className="mt-1 block max-w-[64ch] text-sm leading-relaxed text-muted">{l.entry.summary}</span>
+        <span>
+          <span className="block text-xl font-medium leading-snug group-hover:text-accent">{l.entry.title}</span>
+          <span className="mt-1 flex flex-wrap gap-3 text-sm">
+            {l.entry.milestone && <span className="bg-field px-1.5 text-field-ink">Milestone</span>}
+            {l.entry.sample && <SampleBadge />}
+          </span>
+        </span>
+        <span className="text-base">{l.entry.summary}</span>
       </Link>
     </li>
   );
@@ -68,13 +74,13 @@ export default function JourneyPage() {
   }, [selected, milestonesOnly]);
 
   return (
-    <div className="container-page pb-20">
+    <div className="container-page">
       <PageHeader
         title="Learning journey"
-        lead="Every dated entry from every category on one line, newest first. Nothing here is written twice — it's assembled from the records themselves."
+        lead="Every dated entry from every category, newest first, assembled from the records themselves."
       />
 
-      <div className="flex flex-col gap-4 py-6">
+      <div className="reveal flex flex-col gap-4 bg-surface p-5 sm:p-6">
         <div role="group" aria-label="Show categories" className="flex flex-wrap gap-2">
           {categoryOrder
             .filter((c) => counts[c] > 0)
@@ -87,8 +93,8 @@ export default function JourneyPage() {
                   aria-pressed={on}
                   onClick={() => toggleCat(c)}
                   className={cn(
-                    'inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition-colors',
-                    on ? `border-cat-${c}/40 bg-cat-${c}/10 text-ink` : 'border-line text-muted hover:text-ink',
+                    'inline-flex h-10 items-center gap-2 px-3 text-sm transition-colors active:scale-95',
+                    on ? 'animate-pop bg-ink text-bg' : 'bg-bg text-ink hover:bg-sunken',
                   )}
                 >
                   <CategoryGlyph category={c} size={14} />
@@ -116,35 +122,26 @@ export default function JourneyPage() {
       {shown === 0 ? (
         <EmptyState title="Nothing on the timeline for this view">Choose more categories, or turn off "Milestones only".</EmptyState>
       ) : (
-        <div className="relative">
-          <span aria-hidden="true" className="absolute bottom-0 left-[12px] top-2 w-px bg-line" />
-          {years.map(([year, items]) => (
-            <section key={year} aria-labelledby={`y-${year}`} className="pb-8">
-              <h2 id={`y-${year}`} className="relative mb-2 pl-10 font-display text-display-md">
-                <span aria-hidden="true" className="absolute left-[3px] top-1/2 h-[19px] w-[19px] -translate-y-1/2 rounded-full border-2 border-accent bg-bg" />
-                {year}
-              </h2>
-              <ol className="space-y-2">
-                {items.map((l) => (
-                  <TimelineItem key={`${l.category}/${l.entry.id}`} l={l} />
+        <div key={`${show}|${milestonesOnly}`} className="mt-16 space-y-24">
+          {[...years, ...(undated.length ? ([['Not yet dated', undated]] as Array<[string, Located[]]>) : [])].map(([year, items]) => (
+            <section key={year} aria-labelledby={`y-${year}`} className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
+              <div className="lg:col-span-3">
+                <div>
+                  <h2 id={`y-${year}`} className={cn('text-display-lg', year === 'Not yet dated' && 'max-w-[8ch]')}>
+                    {year}
+                  </h2>
+                  <p className="mt-3 text-base">
+                    {year === 'Not yet dated' ? 'Add a date to these entries to place them on the timeline.' : plural(items.length, 'entry', 'entries')}
+                  </p>
+                </div>
+              </div>
+              <ol className="reveal lg:col-span-9">
+                {items.map((l, i) => (
+                  <TimelineItem key={`${l.category}/${l.entry.id}`} l={l} delay={Math.min(i, 10) * 35} />
                 ))}
               </ol>
             </section>
           ))}
-          {undated.length > 0 && (
-            <section aria-labelledby="y-undated" className="pb-4">
-              <h2 id="y-undated" className="relative mb-1 pl-10 font-display text-display-md text-muted">
-                <span aria-hidden="true" className="absolute left-[3px] top-1/2 h-[19px] w-[19px] -translate-y-1/2 rounded-full border-2 border-dashed border-muted bg-bg" />
-                Not yet dated
-              </h2>
-              <p className="mb-3 pl-10 text-sm text-muted">Add a date to these entries to place them on the timeline.</p>
-              <ol className="space-y-2">
-                {undated.map((l) => (
-                  <TimelineItem key={`${l.category}/${l.entry.id}`} l={l} />
-                ))}
-              </ol>
-            </section>
-          )}
         </div>
       )}
     </div>

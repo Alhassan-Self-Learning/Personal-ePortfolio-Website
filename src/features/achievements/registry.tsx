@@ -211,7 +211,7 @@ export const registry: Registry = {
       opt('Publisher', e.publisher),
       opt('Published', e.year),
       opt('Subject', e.subject),
-      opt('ISBN', e.isbn && <span className="font-mono">{e.isbn}</span>),
+      opt('ISBN', e.isbn && <span className="tabular-nums">{e.isbn}</span>),
       opt('Reading', e.startDate || e.endDate ? formatRange(e.startDate, e.endDate, e.status === 'reading') : undefined),
     ],
     Detail: lazy(() => import('./details/BookDetail')),

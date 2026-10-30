@@ -12,7 +12,7 @@ export function SearchField({ value, onChange, placeholder, label, className }: 
       <Search size={16} aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
       <input id={id} type="search" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="field pl-9 pr-9 [&::-webkit-search-cancel-button]:hidden" />
       {value && (
-        <button type="button" onClick={() => onChange('')} aria-label="Clear search" className="absolute right-2 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:text-ink">
+        <button type="button" onClick={() => onChange('')} aria-label="Clear search" className="absolute right-1.5 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center text-muted hover:text-ink">
           <X size={14} aria-hidden="true" />
         </button>
       )}
@@ -24,7 +24,7 @@ export function SelectField({ label, value, onChange, children, className }: { l
   const id = useId();
   return (
     <div className={cn('flex min-w-0 flex-col gap-1', className)}>
-      <label htmlFor={id} className="text-xs font-medium text-muted">
+      <label htmlFor={id} className="text-sm text-muted">
         {label}
       </label>
       <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="field cursor-pointer pr-8">

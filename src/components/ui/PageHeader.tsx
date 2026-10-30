@@ -8,19 +8,17 @@ export interface Crumb {
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted">
+    <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted">
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {items.map((c, i) => (
           <li key={i} className="flex items-center gap-2">
-            {i > 0 && <span aria-hidden="true" className="text-line">/</span>}
+            {i > 0 && <span aria-hidden="true">/</span>}
             {c.to ? (
-              <Link to={c.to} className="hover:text-ink">
+              <Link to={c.to} className="text-ink underline decoration-1 underline-offset-4 hover:text-accent">
                 {c.label}
               </Link>
             ) : (
-              <span aria-current="page" className="text-ink/80">
-                {c.label}
-              </span>
+              <span aria-current="page">{c.label}</span>
             )}
           </li>
         ))}
@@ -29,15 +27,14 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   );
 }
 
+/** Page opening: title on the anchor line, the lead beside or beneath it. */
 export function PageHeader({ title, lead, crumbs, aside, children }: { title: ReactNode; lead?: ReactNode; crumbs?: Crumb[]; aside?: ReactNode; children?: ReactNode }) {
   return (
-    <header className="border-b border-line pb-8 pt-10 sm:pt-14">
+    <header className="reveal pb-14 pt-14 sm:pt-20">
       {crumbs && <Breadcrumbs items={crumbs} />}
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div className="min-w-0">
-          <h1 className="font-display text-display-lg text-ink">{title}</h1>
-          {lead && <p className="mt-4 max-w-[62ch] text-lg leading-relaxed text-muted">{lead}</p>}
-        </div>
+      <h1 className="max-w-[22ch] text-display-lg text-ink">{title}</h1>
+      <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        {lead && <p className="max-w-[56ch] text-xl text-ink">{lead}</p>}
         {aside}
       </div>
       {children}
@@ -47,10 +44,12 @@ export function PageHeader({ title, lead, crumbs, aside, children }: { title: Re
 
 export function SectionHeading({ title, lead, action, id }: { title: string; lead?: ReactNode; action?: ReactNode; id?: string }) {
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h2 id={id} className="font-display text-display-md">{title}</h2>
-        {lead && <p className="mt-2 max-w-[62ch] text-muted">{lead}</p>}
+        <h2 id={id} className="text-display-md">
+          {title}
+        </h2>
+        {lead && <p className="mt-3 max-w-[56ch] text-base text-ink">{lead}</p>}
       </div>
       {action}
     </div>

@@ -9,15 +9,15 @@ export function SocialLinks({ featuredOnly, variant = 'icons', className }: { fe
 
   if (variant === 'list') {
     return (
-      <ul className={cn('divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface', className)}>
+      <ul className={cn('flex flex-col gap-1', className)}>
         {links.map((s) => (
           <li key={s.id}>
             <a
               href={s.href}
               {...(s.external ? { target: '_blank', rel: 'noopener noreferrer me' } : {})}
-              className="flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-sunken/60"
+              className="flex items-center gap-4 bg-surface px-4 py-3.5 transition-colors hover:bg-sunken"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sunken text-ink">
+              <span className="flex h-9 w-9 items-center justify-center text-ink">
                 <SocialIcon platform={s.platform} />
               </span>
               <span className="min-w-0">
@@ -40,7 +40,7 @@ export function SocialLinks({ featuredOnly, variant = 'icons', className }: { fe
             aria-label={s.platform === 'email' ? `Email ${s.display}` : `${s.label}${s.external ? ' (opens in a new tab)' : ''}`}
             title={s.label}
             {...(s.external ? { target: '_blank', rel: 'noopener noreferrer me' } : {})}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-muted transition-colors hover:border-muted/60 hover:text-ink"
+            className="inline-flex h-11 w-11 items-center justify-center bg-surface text-ink transition-colors hover:bg-accent hover:text-accent-ink"
           >
             <SocialIcon platform={s.platform} />
           </a>

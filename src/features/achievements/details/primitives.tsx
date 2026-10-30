@@ -5,8 +5,8 @@ import { repository } from '@/lib/repository';
 
 export function DetailSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="border-t border-line pt-6">
-      <h2 className="mb-3 font-display text-xl font-semibold">{title}</h2>
+    <section className="reveal pt-6">
+      <h2 className="mb-4 text-xl font-medium">{title}</h2>
       {children}
     </section>
   );
@@ -26,10 +26,10 @@ export function Paragraphs({ text }: { text?: string }) {
 export function BulletList({ items }: { items?: string[] }) {
   if (!items?.length) return null;
   return (
-    <ul className="max-w-[68ch] space-y-2 text-[1.0625rem] leading-relaxed">
+    <ul className="max-w-[64ch] space-y-2 text-base">
       {items.map((t, i) => (
         <li key={i} className="flex gap-3">
-          <span aria-hidden="true" className="mt-[0.7em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+          <span aria-hidden="true" className="mt-[0.65em] h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
           <span>{t}</span>
         </li>
       ))}
@@ -40,13 +40,10 @@ export function BulletList({ items }: { items?: string[] }) {
 export function Steps({ items }: { items?: string[] }) {
   if (!items?.length) return null;
   return (
-    <ol className="max-w-[68ch] space-y-3">
+    <ol className="max-w-[64ch] list-decimal space-y-2 pl-5 text-base marker:text-muted">
       {items.map((t, i) => (
-        <li key={i} className="flex gap-4">
-          <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line text-sm font-medium text-muted">
-            {i + 1}
-          </span>
-          <span className="pt-0.5 leading-relaxed">{t}</span>
+        <li key={i} className="pl-2">
+          {t}
         </li>
       ))}
     </ol>
@@ -76,7 +73,7 @@ export function SkillLinks({ ids }: { ids?: string[] }) {
         <li key={s!.id}>
           <Link
             to={`/skills?skill=${s!.id}`}
-            className="inline-flex rounded-md border border-line px-2 py-1 text-sm transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex bg-surface px-2.5 py-1.5 text-sm transition-colors hover:bg-accent hover:text-accent-ink"
           >
             {s!.name}
           </Link>
@@ -89,10 +86,10 @@ export function SkillLinks({ ids }: { ids?: string[] }) {
 /** Two-column block used for "problem → result" style content. */
 export function Pair({ left, right }: { left: { title: string; body: ReactNode }; right: { title: string; body: ReactNode } }) {
   return (
-    <div className="grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
+    <div className="reveal grid gap-3 md:grid-cols-2">
       {[left, right].map((b) => (
-        <div key={b.title} className="bg-surface p-5">
-          <h3 className="mb-2 text-sm font-semibold text-muted">{b.title}</h3>
+        <div key={b.title} className="bg-surface p-6">
+          <h3 className="mb-2 text-xl font-medium">{b.title}</h3>
           <div className="leading-relaxed">{b.body}</div>
         </div>
       ))}
